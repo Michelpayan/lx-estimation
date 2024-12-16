@@ -185,7 +185,7 @@ def histogram_update(belief, segments, road_spec, grid_spec):
 
     measurement_likelihood = generate_measurement_likelihood(segmentsArray, road_spec, grid_spec)
 
-    if measurement_likelihood is not None:
+    
         # TODO: combine the prior belief and the measurement likelihood to get the posterior belief
         # Don't forget that you may need to normalize to ensure that the output is valid
         # probability distribution
@@ -193,33 +193,20 @@ def histogram_update(belief, segments, road_spec, grid_spec):
         # replace this with something that combines the belief and the measurement_likelihood
         #belief = measurement_likelihood
         # Combine prior belief and measurement likelihood
-<<<<<<< HEAD
-         if measurement_likelihood is not None:
-            belief *= measurement_likelihood
-            b_posterior =  measurement_likelihood*belief
-=======
- 
-        if measurement_likelihood is not None:
-            belief *= measurement_likelihood
-            b_posterior =  measurement_likelihood*belief
 
-            if np.sum(b_posterior) > 0:
 
-                belief = b_posterior/np.sum(b_posterior)
-            else:
-                belief = measurement_likelihood
-                 
+    if measurement_likelihood is not None:
+        belief *= measurement_likelihood
+        b_posterior =  measurement_likelihood*belief
+
+    if np.sum(b_posterior) > 0:
+
+        belief = b_posterior/np.sum(b_posterior)
+    else:
+        belief = measurement_likelihood
+                
     return measurement_likelihood, belief
->>>>>>> origin/ente
-
-            if np.sum(b_posterior) > 0:
-
-                belief = b_posterior/np.sum(b_posterior)
-            else:
-                belief = measurement_likelihood
-                 
-    return measurement_likelihood, belief
-
+            
 
 def getSegmentDistance(segment):
     x_c = (segment.points[0].x + segment.points[1].x) / 2

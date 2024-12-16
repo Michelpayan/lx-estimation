@@ -44,7 +44,7 @@ def histogram_predict(belief, left_encoder_ticks, right_encoder_ticks, grid_spec
     #d_t = grid_spec["d"] + v
     #phi_t = grid_spec["phi"] + w
 
-    d_t = grid_spec["d"] + v * np.cos(grid_spec["phi"])
+    d_t = grid_spec["d"] + v #* np.cos(grid_spec["phi"])
     phi_t = grid_spec["phi"] + w
 
     p_belief = np.zeros(belief.shape)

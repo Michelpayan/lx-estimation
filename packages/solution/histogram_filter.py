@@ -34,8 +34,11 @@ def histogram_predict(belief, left_encoder_ticks, right_encoder_ticks, grid_spec
 
     wheel_radius = robot_spec["wheel_radius"]
     wheel_baseline = robot_spec["wheel_baseline"]
-    v_l = left_encoder_ticks * wheel_radius
-    v_r = right_encoder_ticks * wheel_radius
+    alpha = 2*np.pi/robot_spec["encoder_resolution"]
+
+
+    v_l = (alpha*left_encoder_ticks) * wheel_radius
+    v_r = (alpha*right_encoder_ticks) * wheel_radius
     v = (v_r + v_l) / 2  # Linear velocity
     w = (v_r - v_l) / wheel_baseline  # Angular velocity
 
@@ -44,7 +47,7 @@ def histogram_predict(belief, left_encoder_ticks, right_encoder_ticks, grid_spec
     #d_t = grid_spec["d"] + v
     #phi_t = grid_spec["phi"] + w
 
-    d_t = grid_spec["d"] + v * np.cos(grid_spec["phi"])
+    d_t = grid_spec["d"] + v #* np.cos(grid_spec["phi"])
     phi_t = grid_spec["phi"] + w
 
     p_belief = np.zeros(belief.shape)

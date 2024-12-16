@@ -193,9 +193,24 @@ def histogram_update(belief, segments, road_spec, grid_spec):
         # replace this with something that combines the belief and the measurement_likelihood
         #belief = measurement_likelihood
         # Combine prior belief and measurement likelihood
+<<<<<<< HEAD
          if measurement_likelihood is not None:
             belief *= measurement_likelihood
             b_posterior =  measurement_likelihood*belief
+=======
+ 
+        if measurement_likelihood is not None:
+            belief *= measurement_likelihood
+            b_posterior =  measurement_likelihood*belief
+
+            if np.sum(b_posterior) > 0:
+
+                belief = b_posterior/np.sum(b_posterior)
+            else:
+                belief = measurement_likelihood
+                 
+    return measurement_likelihood, belief
+>>>>>>> origin/ente
 
             if np.sum(b_posterior) > 0:
 

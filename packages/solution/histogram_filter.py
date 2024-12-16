@@ -193,11 +193,17 @@ def histogram_update(belief, segments, road_spec, grid_spec):
         # replace this with something that combines the belief and the measurement_likelihood
         #belief = measurement_likelihood
         # Combine prior belief and measurement likelihood
-        if measurement_likelihood is not None:
+         if measurement_likelihood is not None:
             belief *= measurement_likelihood
-            belief /= np.sum(belief)  # Normalize the posterior belief
-    return measurement_likelihood, belief
+            b_posterior =  measurement_likelihood*belief
 
+            if np.sum(b_posterior) > 0:
+
+                belief = b_posterior/np.sum(b_posterior)
+            else:
+                belief = measurement_likelihood
+                 
+    return measurement_likelihood, belief
 
 
 def getSegmentDistance(segment):
